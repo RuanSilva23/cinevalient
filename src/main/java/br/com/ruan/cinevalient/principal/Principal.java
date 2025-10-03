@@ -1,6 +1,5 @@
 package br.com.ruan.cinevalient.principal;
 
-import br.com.ruan.cinevalient.model.DadosEpisodios;
 import br.com.ruan.cinevalient.model.DadosSerie;
 import br.com.ruan.cinevalient.model.DadosTemporada;
 import br.com.ruan.cinevalient.service.ConsumoAPI;
