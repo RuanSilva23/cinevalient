@@ -59,6 +59,7 @@ public class Principal {
                 .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
                 .sorted(Comparator.comparing(DadosEpisodios::avaliacao).reversed())
                 .limit(4)
+                .map(e -> e.titulo().toUpperCase())
                 .forEach(System.out::println);
 
         List<Episodio> episodios = temporadas.stream()
