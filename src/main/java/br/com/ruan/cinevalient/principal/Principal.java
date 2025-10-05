@@ -1,13 +1,16 @@
 package br.com.ruan.cinevalient.principal;
 
+import br.com.ruan.cinevalient.model.DadosEpisodios;
 import br.com.ruan.cinevalient.model.DadosSerie;
 import br.com.ruan.cinevalient.model.DadosTemporada;
+import br.com.ruan.cinevalient.model.Episodio;
 import br.com.ruan.cinevalient.service.ConsumoAPI;
 import br.com.ruan.cinevalient.service.ConverteDados;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Principal {
     private Scanner scanner = new Scanner(System.in);
@@ -45,5 +48,42 @@ public class Principal {
 //        }
 
         temporadas.forEach(t -> t.episodios().forEach(e-> System.out.println(e.titulo())));
+
+        List<DadosEpisodios> dadosEpisodios = temporadas.stream()
+                        .flatMap(t -> t.episodios().stream())
+                        .collect(Collectors.toList());
+
+
+        System.out.println("Os melhores são: ");
+        dadosEpisodios.stream()
+                .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
+                .sorted(Comparator.comparing(DadosEpisodios::avaliacao).reversed())
+                .limit(4)
+                .forEach(System.out::println);
+
+        List<Episodio> episodios = temporadas.stream()
+                .flatMap(t -> t.episodios().stream()
+                                .map(d -> new Episodio(t.numero(), d)))
+                .collect(Collectors.toList());
+        episodios.forEach(System.out::println);
+
+        System.out.println("A partir de que ano: ");
+        var ano = scanner.nextInt();
+        scanner.nextLine();
+
+        LocalDate dataBusca = LocalDate.of(ano, 1 ,1);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        episodios.stream()
+                        .filter(e ->e.getDataLancamento() != null && e.getDataLancamento().isAfter(dataBusca))
+                                .forEach(e -> System.out.println(
+                                        "Temporada: " + e.getTemporada() +
+                                        "\nEpisódio: " + e.getTitulo() +
+                                        "\nData Lançamento : " + e.getDataLancamento().format(formatter)
+                                ));
+
+        scanner.close();
+
     }
 }
