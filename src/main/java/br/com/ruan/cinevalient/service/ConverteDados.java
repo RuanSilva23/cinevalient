@@ -1,6 +1,5 @@
 package br.com.ruan.cinevalient.service;
 
-import br.com.ruan.cinevalient.model.DadosSerie;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
