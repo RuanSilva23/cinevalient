@@ -2,7 +2,6 @@ package br.com.ruan.cinevalient.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.zip.DataFormatException;
 
 public class Episodio {
     private Integer temporada;
@@ -14,6 +13,8 @@ public class Episodio {
     private Double avaliacao;
 
     private LocalDate dataLancamento;
+
+    private String resumo;
 
     public Episodio(Integer numeroTemporada, DadosEpisodios dadosEpisodios){
         this.temporada = numeroTemporada;
@@ -75,8 +76,16 @@ public class Episodio {
         this.dataLancamento = dataLancamento;
     }
 
+    public String getResumo() {
+        return resumo;
+    }
+
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
+    }
+
     @Override
     public String toString() {
-        return "temporada=" + temporada + ", titulo=" + titulo + ", numero=" + numero + ", avaliacao=" + avaliacao + ", dataLancamento=" + dataLancamento + "\n";
+        return "temporada=" + temporada + ", titulo=" + titulo + ", numero=" + numero + ", avaliacao=" + avaliacao + ", dataLancamento=" + dataLancamento  + "\n";
     }
 }
