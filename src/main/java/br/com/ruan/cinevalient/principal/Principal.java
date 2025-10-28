@@ -3,6 +3,7 @@ package br.com.ruan.cinevalient.principal;
 import br.com.ruan.cinevalient.model.DadosSerie;
 import br.com.ruan.cinevalient.model.DadosTemporada;
 import br.com.ruan.cinevalient.model.Serie;
+import br.com.ruan.cinevalient.repository.SerieRepository;
 import br.com.ruan.cinevalient.service.ConsumoAPI;
 import br.com.ruan.cinevalient.service.ConverteDados;
 import br.com.ruan.cinevalient.service.ConverteOpcoes;
@@ -22,6 +23,12 @@ public class Principal {
     private Scanner scanner = new Scanner(System.in);
 
     private List<DadosSerie> dadosSerieList = new ArrayList<>();
+
+    private SerieRepository repository;
+
+    public Principal(SerieRepository repository){
+        this.repository = repository;
+    }
 
     public void exibeMenu() {
         int opcao;
@@ -64,8 +71,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSerieList.add(dados);
-        System.out.println(dados);
+        //dadosSerieList.add(dados);
+        Serie serie = new Serie(dados);
+        repository.save(serie);
     }
 
     private DadosSerie getDadosSerie() {
