@@ -1,17 +1,31 @@
 package br.com.ruan.cinevalient.model;
 
 import br.com.ruan.cinevalient.service.traducao.ConsultaMyMemory;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.OptionalDouble;
 
+@Entity
+@Table(name = "series")
+
 public class Serie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true)
     private String titulo;
     private String ano;
+    @Enumerated(EnumType.STRING)
     private Categoria genero;
     private Integer totalTemporadas;
     private Double avaliacao;
     private String sinopse;
     private String atores;
+
+    @Transient
+    private List<Episodio> episodios = new ArrayList<>();
 
     public Serie(DadosSerie dadosSerie) {
         this.titulo = dadosSerie.titulo();
@@ -22,6 +36,23 @@ public class Serie {
         this.sinopse = ConsultaMyMemory.obterTraducao(dadosSerie.sinopse()).trim();
         this.atores = dadosSerie.atores();
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        this.episodios = episodios;
+    }
+
 
     public String getTitulo() {
         return titulo;
