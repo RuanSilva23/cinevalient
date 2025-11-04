@@ -1,9 +1,18 @@
 package br.com.ruan.cinevalient.model;
 
+import jakarta.persistence.*;
+import org.hibernate.annotations.ManyToAny;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+@Entity
+@Table(name = "episodio")
 public class Episodio {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private Integer temporada;
 
     private String titulo;
@@ -15,6 +24,11 @@ public class Episodio {
     private LocalDate dataLancamento;
 
     private String resumo;
+
+    @ManyToOne
+    private Serie serie;
+
+    public Episodio(){}
 
     public Episodio(Integer numeroTemporada, DadosEpisodios dadosEpisodios){
         this.temporada = numeroTemporada;
@@ -34,6 +48,14 @@ public class Episodio {
             this.dataLancamento = null;
         }
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -84,8 +106,16 @@ public class Episodio {
         this.resumo = resumo;
     }
 
+    public Serie getSerie() {
+        return serie;
+    }
+
+    public void setSerie(Serie serie) {
+        this.serie = serie;
+    }
+
     @Override
     public String toString() {
-        return "temporada=" + temporada + ", titulo=" + titulo + ", numero=" + numero + ", avaliacao=" + avaliacao + ", dataLancamento=" + dataLancamento  + "\n";
+        return "temporada=" + temporada + ", titulo=" + titulo + ", epísodio=" + numero + ", avaliacao=" + avaliacao + ", dataLancamento=" + dataLancamento  + "\n";
     }
 }
