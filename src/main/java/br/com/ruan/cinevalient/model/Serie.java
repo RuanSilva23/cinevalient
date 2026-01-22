@@ -23,6 +23,17 @@ public class Serie {
     private Double avaliacao;
     private String sinopse;
     private String atores;
+    private String poster;
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+
 
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episodio> episodios = new ArrayList<>();
