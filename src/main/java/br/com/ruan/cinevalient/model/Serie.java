@@ -131,6 +131,7 @@ public class Serie {
                 "\nano: " + ano  +
                 "\navaliação: " + avaliacao +
                 "\ntemporadas: " + totalTemporadas +
+                "\nposter: " + poster +
                 "\natores: " + atores +
                 "\nsinopse: " + sinopse +
                 "\nepisodios: " + episodios
